@@ -1,17 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sfpn.google_sfpn.Menu">
+    android:orientation="vertical"
+    tools:context="com.example.sfpn.google_sfpn.Menu"
+    android:weightSum="10">
+
+    <ImageView
+        android:id="@+id/ImageMenu"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        />
 
     <Button
-        android:id="@+id/STATIS"
-        android:layout_width="381dp"
-        android:layout_height="62dp"
-        android:text="Button"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="445dp" />
+        android:id="@+id/easy"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:gravity="center_horizontal|center_vertical"
 
-</android.support.constraint.ConstraintLayout>
+        android:text="PLAY EASY" />
+    <Button
+        android:id="@+id/medium"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:gravity="center_horizontal|center_vertical"
+
+        android:text="PLAY MEDIUM" />
+    <Button
+        android:id="@+id/expert"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:gravity="center_horizontal|center_vertical"
+
+        android:text="PLAY EXPERT" />
+
+    <Button
+        android:id="@+id/statistics"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:gravity="center_horizontal|center_vertical"
+
+        android:text="STATISTICS" />
+</LinearLayout>
