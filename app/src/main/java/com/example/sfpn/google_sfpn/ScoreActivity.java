@@ -1,15 +1,14 @@
 package com.example.sfpn.google_sfpn;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class ScoreActivity extends AppCompatActivity {
 
-    ArrayList<Double> scoreList = new ArrayList<Double>();
+public class ScoreActivity extends Activity {
+    ArrayList<Score> list = new ArrayList<Score>();
     private ListView score;
 
     @Override
@@ -17,11 +16,16 @@ public class ScoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
 
-        scoreList.add(42.0);
+        list.add(new Score(666.666, 2));
+        list.add(new Score(3.9,0));
+
+
+        //ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, list);
+        ScoresAdapter adapter = new ScoresAdapter(this, list);
 
         score = (ListView) findViewById(R.id.scoreListView);
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, scoreList);
         score.setAdapter(adapter);
 
     }
+
 }

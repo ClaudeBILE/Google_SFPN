@@ -6,14 +6,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.sfpn.google_sfpn.Menu"
-    android:weightSum="10">
+    android:weightSum="10"
+    >
 
     <ImageView
         android:id="@+id/ImageMenu"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6"
-        />
+        app:srcCompat="@mipmap/world"/>
 
     <Button
         android:id="@+id/easy"

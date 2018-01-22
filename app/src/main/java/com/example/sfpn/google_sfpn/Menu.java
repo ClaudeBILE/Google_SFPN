@@ -1,16 +1,21 @@
 package com.example.sfpn.google_sfpn;
 
+import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class Menu extends AppCompatActivity implements View.OnClickListener{
     Button easy, medium, expert, statistics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="3">
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="left"
+
+        android:text="1000.0"
+        android:layout_marginLeft="5dp"
+        android:gravity="left"
+        android:textSize="18sp"
+       />
+
+    <TextView
+        android:id="@+id/lvl"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center|center_vertical"
+        android:text="Hard"
+        android:textColor="#f00"
+        android:textSize="18sp"
+        />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:gravity="center_vertical|right"
+        android:textColor="#00f"
+        android:text="Today"
+        android:layout_marginRight="5dp"
+        android:textSize="18sp"
+        />
+</LinearLayout>
