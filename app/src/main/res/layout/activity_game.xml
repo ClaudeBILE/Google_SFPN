@@ -4,14 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sfpn.google_sfpn.Menu">
-
-    <Button
-        android:id="@+id/STATIS"
-        android:layout_width="381dp"
-        android:layout_height="62dp"
-        android:text="Button"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="445dp" />
+    tools:context="com.example.sfpn.google_sfpn.Game">
 
 </android.support.constraint.ConstraintLayout>
