@@ -41,14 +41,12 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
 
-        android:layout_marginTop="32dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="PLAY EASY"
         app:layout_constraintBottom_toTopOf="@+id/expert"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/ImageMenu"
-        app:layout_constraintTop_toBottomOf="@+id/invert_mode" />
+        app:layout_constraintStart_toEndOf="@+id/ImageMenu" />
 
     <Button
         android:id="@+id/medium"
