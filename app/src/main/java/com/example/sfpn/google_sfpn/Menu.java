@@ -8,13 +8,17 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class Menu extends AppCompatActivity implements View.OnClickListener{
     Button easy, medium, expert, statistics;
+    boolean isInvert = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +33,24 @@ public class Menu extends AppCompatActivity implements View.OnClickListener{
         expert.setOnClickListener(this);
         statistics.setOnClickListener(this);
 
+        Switch switchButton = (Switch) findViewById(R.id.invert_mode);
+        switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    isInvert = true;
+                }else {
+                    isInvert = false;
+                }
+            }
+        });
+
     }
 
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(this, Game.class);
+        intent.putExtra("MODE",isInvert);
         int id = view.getId();
         if(id == easy.getId()){
             intent.putExtra("FLAG", 0);
