@@ -10,24 +10,18 @@ import java.util.Date;
 
 public class Score {
     private int points;
-    private String niveau;
+    private int niveau;
     private Date timestamp;
     private SimpleDateFormat ft =new SimpleDateFormat (" dd.MM.yyyy hh:mm");
 
     public Score(int d, int lvl){
         this.points = d;
         this.timestamp = new Date();
+        this.niveau = lvl;
 
-        if(lvl == 0){
-            this.niveau = "Novice";
-        } else if( lvl == 1){
-            this.niveau = "Medium";
-        } else if (lvl == 2){
-            this.niveau ="Expert";
-        }
     }
 
-    public Score(int d, String lvl, String date){
+    public Score(int d, int lvl, String date){
         this.points = d;
         this.niveau = lvl;
         try {
@@ -42,13 +36,32 @@ public class Score {
         return (String.valueOf(points));
     }
 
+    public int getPointsInt(){
+        return points;
+    }
+
     public String getNiveau(){
+        switch (niveau){
+            case 0:
+                return "Novice";
+            case 1:
+                return "Medium";
+            default:
+                return "Expert";
+        }
+    }
+
+    public int getNiveauInt(){
         return niveau;
     }
 
     public String getTimeStamp(){
 
         return ft.format(timestamp);
+    }
+
+    public Date getTimestampDate(){
+        return timestamp;
     }
 
 }
