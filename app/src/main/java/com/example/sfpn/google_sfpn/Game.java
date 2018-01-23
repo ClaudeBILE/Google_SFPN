@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.method.Touch;
 import android.util.Log;
 import android.widget.CompoundButton;
+import android.widget.ShareActionProvider;
 import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -130,23 +131,45 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
 
                 }
                 else {
-
-
-                    alertDialog.setMessage("Votre score final est de "+ (int) score);
-                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
-                            new DialogInterface.OnClickListener() {
+                    addScoreToDB((int) score, difficulty);
+                    AlertDialog.Builder alertDialogbuild = new AlertDialog.Builder(this);
+                    alertDialogbuild.setTitle("Bravo");
+                    alertDialogbuild.setCancelable(false);
+                    alertDialogbuild.setMessage("Votre score final est de "+ (int) score)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
+
                                     touchMarker.remove();
                                     curentPositionMarker.remove();
                                     polyline.remove();
                                     goToMenu();
                                 }
-                            });
-                    alertDialog.setCanceledOnTouchOutside(false);
-                    alertDialog.show();
+                            })
+                            .setNegativeButton("Publish", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    touchMarker.remove();
+                                    curentPositionMarker.remove();
+                                    polyline.remove();
+                                    goToMenu();
+                                    Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                                    intent.setType("text/plain");
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    Score newScore = new Score((int)score, difficulty);
+
+                                    intent.putExtra(Intent.EXTRA_SUBJECT, "Look at my score !!");
+                                    intent.putExtra(Intent.EXTRA_TEXT,"Look at my score !! \n"+
+                                            newScore.getPoints() + " points on " +
+                                            newScore.getNiveau() + " difficulty");
+                                    startActivity(Intent.createChooser(intent,"Share via"));
+
+                                }
+                            }).show();
+
+
                     //save Score here and launch menu activity
-                    addScoreToDB((int) score, difficulty);
 
                 }
             }
@@ -175,7 +198,6 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
         difficulty = intent.getIntExtra("FLAG", 0);
         isInvert = intent.getBooleanExtra("MODE", false);
 
-        Toast.makeText(getApplicationContext(),isInvert + "",Toast.LENGTH_SHORT).show();
         //eaysy mode
         easyList.add(new CustomPosition(new LatLng(48.8583698, 2.2944833000000244),"Tour Eiffel"));
         easyList.add(new CustomPosition(new LatLng(48.63601659999999, -1.5111144999999624),"Mont Saint Michel"));

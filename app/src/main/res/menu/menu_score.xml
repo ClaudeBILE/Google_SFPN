@@ -16,13 +16,23 @@
         android:id="@+id/sort_by"
         android:title="Sort by :"
         app:showAsAction="never"/>
+    <group android:id="@+id/sort" android:checkableBehavior="single">
+
     <item android:id="@+id/sort_score"
         android:title="Score"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        android:checked="true"/>
     <item android:id="@+id/sort_lvl"
         android:title="Level"
         app:showAsAction="never"/>
     <item android:id="@+id/sort_time"
         android:title="Time"
         app:showAsAction="never"/>
+    </group>
+    <group android:id="@+id/delete">
+        <item
+            android:id="@+id/delete_all"
+            android:title="Delete All"
+            app:showAsAction="never"/>
+    </group>
 </menu>

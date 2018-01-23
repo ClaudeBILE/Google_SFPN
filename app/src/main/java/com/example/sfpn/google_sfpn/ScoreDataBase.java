@@ -126,4 +126,17 @@ public class ScoreDataBase extends SQLiteOpenHelper {
             db.endTransaction();
         }
     }
+
+    public void deleteScore(Score score){
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+        try {
+            db.delete(TABLE_SCORE, "time=?", new String[]{score.getTimeStamp()});
+            db.setTransactionSuccessful();
+        } catch (Exception e){
+            Log.d(TAG, "Error while trying to delete one score from database");
+        } finally {
+            db.endTransaction();
+        }
+    }
 }

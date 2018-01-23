@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/delete_cell"
+        android:title="Delete"/>
+    <item android:id="@+id/share_cell"
+        android:title="Share"
+        android:actionProviderClass="android.widget.ShareActionProvider"
+        tools:ignore="AppCompatResource" />
+
+</menu>
