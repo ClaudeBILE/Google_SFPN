@@ -28,7 +28,7 @@ public class ScoreDataBase extends SQLiteOpenHelper {
     //Score table columns
     private static final String KEY_SCORE_POINTS = "points";
     private static final String KEY_SCORE_LEVEL = "level";
-    private static final String KEY_SCORE_TIME = "TIME";
+    private static final String KEY_SCORE_TIME = "time";
 
     public ScoreDataBase(Context context){
         super(context, DATABASE_NAME, null,DATABASE_VERSION);
@@ -49,11 +49,11 @@ public class ScoreDataBase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_SCORE_TABLE = "CREATE TABLE" + TABLE_SCORE +
+        String CREATE_SCORE_TABLE = "CREATE TABLE " + TABLE_SCORE +
                 "(" +
                     KEY_SCORE_POINTS + " INT," +
                     KEY_SCORE_LEVEL + " TEXT," +
-                    KEY_SCORE_TIME + " TEXT PRIMARY KEY," +
+                    KEY_SCORE_TIME + " TEXT PRIMARY KEY" +
                 ")";
         db.execSQL(CREATE_SCORE_TABLE);
     }

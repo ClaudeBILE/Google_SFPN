@@ -37,11 +37,6 @@ public class Score {
         }
     }
 
-    public interface ScoreListener{
-        public void onScoreReady();
-
-        public void onDataLoaded(int score, int lvl);
-    }
 
     public String getPoints(){
         return (String.valueOf(points));

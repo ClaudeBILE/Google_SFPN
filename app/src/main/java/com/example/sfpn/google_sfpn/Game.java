@@ -66,7 +66,8 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
                     //.snippet("Some description here")
             );
             Toast.makeText(getApplicationContext(), "Calcul de distance", Toast.LENGTH_SHORT).show();
-
+            // Fake value to test the DB
+            addScoreToDb((int)(Math.random()*1000), difficulty);
             mapMarker.remove();
         }
 
@@ -131,7 +132,13 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
 
         //Toast.makeText(getApplicationContext(), message+"", Toast.LENGTH_SHORT).show();
 
+    public void addScoreToDb(int points, int difficulty){
+        Score newScore = new Score(points, difficulty);
+        ScoreDataBase databaseHelper = ScoreDataBase.getInstance(this);
 
+        // Add sample post to the database
+        databaseHelper.addScore(newScore);
+    }
 
 }
 
