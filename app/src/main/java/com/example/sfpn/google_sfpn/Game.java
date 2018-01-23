@@ -1,8 +1,12 @@
 package com.example.sfpn.google_sfpn;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.Touch;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -18,6 +22,8 @@ import com.google.android.gms.maps.SupportStreetViewPanoramaFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -30,11 +36,18 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
     private StreetViewPanorama mPanorama;
     private ArrayList<ArrayList<CustomPosition>> positionList = new ArrayList<ArrayList<CustomPosition>>() ;
     private ArrayList<CustomPosition>easyList = new ArrayList<CustomPosition>();
-    private static LatLng eiffel = new LatLng(48.8583698, 2.2944833000000244);
-    private static LatLng saintMichel = new LatLng(48.636, -1.511);
+    private CustomPosition currentPosition;
+    private final double circonferenceTerre = 40075/2.0;
+    private Marker touchMarker;
+    private Marker curentPositionMarker;
+    private Polyline polyline;
     private Iterator<CustomPosition> itr;
     private int difficulty;
+    private final int topScore = 10000;
     private Boolean isGameStarted = false;
+    private double score;
+    private int indiceList = 0;
+
 
 
     protected void setUpMapIfNeeded() {
@@ -59,15 +72,71 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
 
     @Override
     public void onMapLongClick(LatLng point) {
-        if (isGameStarted == true) {
-            Marker mapMarker = gMap.addMarker(new MarkerOptions()
-                            .position(point)
-                    //.title("Some title here")
-                    //.snippet("Some description here")
-            );
-            Toast.makeText(getApplicationContext(), "Calcul de distance", Toast.LENGTH_SHORT).show();
 
-            mapMarker.remove();
+
+        if (isGameStarted == true) {
+
+            if (indiceList < positionList.get(difficulty).size()) {
+                currentPosition = positionList.get(difficulty).get(indiceList);
+
+                touchMarker = gMap.addMarker(new MarkerOptions()
+                                .position(point)
+                        //.title("Some title here")
+                        //.snippet("Some description here")
+                );
+
+                curentPositionMarker = gMap.addMarker(new MarkerOptions()
+                                .position(currentPosition.getPosition())
+                        .title(currentPosition.getNom())
+                        //.snippet("Some description here")
+                );
+                //trace poly
+                PolylineOptions rectOptions = new PolylineOptions()
+                        .add(currentPosition.getPosition()) // Same longitude, and 16km to the south
+                        .add(point);
+                polyline = gMap.addPolyline(rectOptions);
+
+                float [] distance = new float[1];
+                Location.distanceBetween(currentPosition.getPosition().latitude,currentPosition.getPosition().longitude,point.latitude,point.longitude,distance);
+                Toast.makeText(getApplicationContext(), "Calcul de distance", Toast.LENGTH_SHORT).show();
+                score = score + ((circonferenceTerre - distance[0]/1000)/(circonferenceTerre))*(topScore/positionList.get(difficulty).size());
+
+
+
+                indiceList = indiceList + 1;
+                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                if (indiceList < positionList.get(difficulty).size()) {
+                    mPanorama.setPosition(positionList.get(difficulty).get(indiceList).getPosition());
+                    alertDialog.setMessage("Vous êtes à "+ distance[0]/1000 +"Km de "+ currentPosition.getNom());
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    touchMarker.remove();
+                                    curentPositionMarker.remove();
+                                    polyline.remove();
+                                }
+                            });
+                    alertDialog.show();
+
+                }
+                else {
+
+
+                    alertDialog.setMessage("Votre score final est de "+ score);
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    touchMarker.remove();
+                                    curentPositionMarker.remove();
+                                    polyline.remove();
+                                }
+                            });
+                    alertDialog.show();
+                    //save Score here and launch menu activity
+                }
+            }
         }
 
     }
@@ -86,8 +155,19 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
         setContentView(R.layout.activity_game);
         Intent intent = getIntent();
         difficulty = intent.getIntExtra("FLAG", 0);
-        easyList.add(new CustomPosition(eiffel,"Tour Eiffel"));
-        easyList.add(new CustomPosition(saintMichel,"Mont Saint Michel"));
+
+        //eaysy mode
+        easyList.add(new CustomPosition(new LatLng(48.8583698, 2.2944833000000244),"Tour Eiffel"));
+        easyList.add(new CustomPosition(new LatLng(48.63601659999999, -1.5111144999999624),"Mont Saint Michel"));
+        easyList.add(new CustomPosition(new LatLng(40.6892494, -74.0445004),"Statue de la liberté"));
+        easyList.add(new CustomPosition(new LatLng(-33.8567844, 151.21529669999995),"Opéra de sydney"));
+        easyList.add(new CustomPosition(new LatLng(51.50072919999999, -0.12462540000001354),"Big ben"));
+        easyList.add(new CustomPosition(new LatLng(43.87910249999999, -103.4590667),"Mont rochemort"));
+        easyList.add(new CustomPosition(new LatLng(43.722952, 10.396596999999929),"Tour de pise"));
+        easyList.add(new CustomPosition(new LatLng(29.9772962, 31.132495500000005),"Pyramides de Gizeh"));
+        easyList.add(new CustomPosition(new LatLng(27.1750151, 78.04215520000002),"Taj Mahal"));
+        easyList.add(new CustomPosition(new LatLng(40.7485413, -73.98575770000002),"Empire state building"));
+        //
         positionList.add(easyList);
         Log.d("myTag", "This is my message "+difficulty);
         this.Game(difficulty);
@@ -103,16 +183,15 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
             Log.d("myTag", "streetview created and associated");
         }
         Log.d("myTag", "message 2");
-        Toast.makeText(getApplicationContext(), difficulty+"", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), difficulty+"", Toast.LENGTH_SHORT).show();
     }
 
     public void Game(int difficulty){
             ArrayList<CustomPosition> levelPositionsList = positionList.get(difficulty);
-            itr = levelPositionsList.iterator();
+            indiceList =0;
+            score = 0;
             isGameStarted = true;
-            if (itr.hasNext()) {
-                CustomPosition currentPosition = itr.next();
-            }
+
         Log.d("myTag", "launching Game");
 
     }
