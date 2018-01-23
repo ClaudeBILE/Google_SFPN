@@ -208,5 +208,10 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
         }
     }
 
+    public void addScoreToDB(int points, int difficulty){
+        Score newScore = new Score(points,difficulty);
+        ScoreDataBase dataBase = ScoreDataBase.getInstance(this);
+        dataBase.addScore(newScore);
+    }
 }
 
