@@ -102,8 +102,13 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
                 float [] distance = new float[1];
                 Location.distanceBetween(currentPosition.getPosition().latitude,currentPosition.getPosition().longitude,point.latitude,point.longitude,distance);
                 Toast.makeText(getApplicationContext(), (indiceList+1)+" / "+ positionList.get(difficulty).size(), Toast.LENGTH_SHORT).show();
-                score = score + ((circonferenceTerre - distance[0]/1000)/(circonferenceTerre))*(topScore/positionList.get(difficulty).size());
+                if (isInvert == false) {
+                    score = score + ((circonferenceTerre - distance[0] / 1000) / (circonferenceTerre)) * (topScore / positionList.get(difficulty).size());
+                }
+                else {
 
+                    score = score + ((distance[0] / 1000) / (circonferenceTerre)) * (topScore / positionList.get(difficulty).size());
+                }
 
 
                 indiceList = indiceList + 1;
