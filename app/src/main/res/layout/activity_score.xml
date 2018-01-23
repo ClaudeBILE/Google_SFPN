@@ -4,7 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sfpn.google_sfpn.ScoreActivity">
+    tools:context="com.example.sfpn.google_sfpn.ScoreActivity"
+    android:orientation="vertical">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+
+        >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Scores"
+        android:textSize="18sp"
+        android:textColor="#000"
+        android:textStyle="bold"/>
+    </android.support.v7.widget.Toolbar>
+
 
     <ListView
         android:id="@+id/scoreListView"

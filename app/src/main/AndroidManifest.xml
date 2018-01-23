@@ -17,7 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Game" />
-        <activity android:name=".ScoreActivity"></activity>
+        <activity android:name=".ScoreActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:parentActivityName=".Menu"/>
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDRoUFD8ezU0zCLSbVGwWCZuve_j-siyzY"/>
     </application>

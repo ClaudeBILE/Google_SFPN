@@ -52,7 +52,7 @@ public class ScoreDataBase extends SQLiteOpenHelper {
         String CREATE_SCORE_TABLE = "CREATE TABLE " + TABLE_SCORE +
                 "(" +
                     KEY_SCORE_POINTS + " INT," +
-                    KEY_SCORE_LEVEL + " TEXT," +
+                    KEY_SCORE_LEVEL + " INT," +
                     KEY_SCORE_TIME + " TEXT PRIMARY KEY" +
                 ")";
         db.execSQL(CREATE_SCORE_TABLE);
@@ -74,7 +74,7 @@ public class ScoreDataBase extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(KEY_SCORE_POINTS, score.getPoints());
             values.put(KEY_SCORE_TIME, score.getTimeStamp());
-            values.put(KEY_SCORE_LEVEL, score.getNiveau());
+            values.put(KEY_SCORE_LEVEL, score.getNiveauInt());
 
             db.insertOrThrow(TABLE_SCORE, null, values);
             db.setTransactionSuccessful();
@@ -98,7 +98,7 @@ public class ScoreDataBase extends SQLiteOpenHelper {
             if (cursor.moveToFirst()){
                 do {
                     Score newScore = new Score(cursor.getInt(cursor.getColumnIndex(KEY_SCORE_POINTS)),
-                            cursor.getString(cursor.getColumnIndex(KEY_SCORE_LEVEL)),
+                            cursor.getInt(cursor.getColumnIndex(KEY_SCORE_LEVEL)),
                             cursor.getString(cursor.getColumnIndex(KEY_SCORE_TIME)));
                     scores.add(newScore);
                 } while (cursor.moveToNext());
