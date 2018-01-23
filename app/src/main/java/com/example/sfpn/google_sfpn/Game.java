@@ -45,7 +45,6 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
     private Marker touchMarker;
     private Marker curentPositionMarker;
     private Polyline polyline;
-    private Iterator<CustomPosition> itr;
     private int difficulty;
     private final int topScore = 10000;
     private Boolean isGameStarted = false;
@@ -53,6 +52,19 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
     private int indiceList = 0;
     private Boolean isInvert = false;
 
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        if(isGameStarted == true) {
+            outState.putInt("IndiceList", indiceList);
+            outState.putBoolean("IsGameStart",isGameStarted);
+            outState.putDouble("score",score);
+            outState.putBoolean("isInvert",isInvert);
+            outState.putInt("difficulty",difficulty);
+            //outState.putInt("");
+            super.onSaveInstanceState(outState);
+        }
+    }
 
     protected void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
@@ -140,6 +152,7 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
 
+<<<<<<< Updated upstream
                                     touchMarker.remove();
                                     curentPositionMarker.remove();
                                     polyline.remove();
@@ -148,6 +161,12 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
                             })
                             .setNegativeButton("Publish", new DialogInterface.OnClickListener() {
                                 @Override
+=======
+                    isGameStarted = false;
+                    alertDialog.setMessage("Votre score final est de "+ (int) score);
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                            new DialogInterface.OnClickListener() {
+>>>>>>> Stashed changes
                                 public void onClick(DialogInterface dialog, int which) {
 
                                     touchMarker.remove();
@@ -166,8 +185,14 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
                                     startActivity(Intent.createChooser(intent,"Share via"));
 
                                 }
+<<<<<<< Updated upstream
                             }).show();
 
+=======
+                            });
+                    alertDialog.setCanceledOnTouchOutside(false);
+                    alertDialog.show();
+>>>>>>> Stashed changes
 
                     //save Score here and launch menu activity
 
@@ -210,20 +235,28 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
         easyList.add(new CustomPosition(new LatLng(27.1750151, 78.04215520000002),"Taj Mahal"));
         easyList.add(new CustomPosition(new LatLng(40.7485413, -73.98575770000002),"Empire state building"));
         //
+
         positionList.add(easyList);
         Log.d("myTag", "This is my message "+difficulty);
+
         this.Game(difficulty);
         if (streetView == null){
             streetView = ((SupportStreetViewPanoramaFragment) getSupportFragmentManager().findFragmentById(R.id.street));
-
+            if(streetView != null) {
+                streetView.getStreetViewPanoramaAsync(this);
+                Log.d("myTag", "streetview created and associated");
+            }
         }
+
 
         this.setUpMapIfNeeded();
+        if (savedInstanceState == null){
+            map.setRetainInstance(true);
+            streetView.setRetainInstance(true);
 
-        if(streetView != null) {
-            streetView.getStreetViewPanoramaAsync(this);
-            Log.d("myTag", "streetview created and associated");
         }
+
+
         Log.d("myTag", "message 2");
         //Toast.makeText(getApplicationContext(), difficulty+"", Toast.LENGTH_SHORT).show();
 

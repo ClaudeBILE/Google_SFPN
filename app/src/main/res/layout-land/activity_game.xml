@@ -6,15 +6,14 @@
     android:layout_height="match_parent"
     tools:context="com.example.sfpn.google_sfpn.Game"
     android:weightSum="2"
-
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         android:name="com.google.android.gms.maps.SupportStreetViewPanoramaFragment"
         android:id="@+id/street"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:layout_gravity="center_horizontal|center_vertical" />
 
@@ -22,8 +21,8 @@
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:id="@+id/map"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:layout_gravity="center_horizontal|center_vertical" />
 
