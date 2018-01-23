@@ -101,7 +101,7 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
 
                 float [] distance = new float[1];
                 Location.distanceBetween(currentPosition.getPosition().latitude,currentPosition.getPosition().longitude,point.latitude,point.longitude,distance);
-                Toast.makeText(getApplicationContext(), "Calcul de distance", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), (indiceList+1)+" / "+ positionList.get(difficulty).size(), Toast.LENGTH_SHORT).show();
                 score = score + ((circonferenceTerre - distance[0]/1000)/(circonferenceTerre))*(topScore/positionList.get(difficulty).size());
 
 
@@ -120,13 +120,14 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
                                     polyline.remove();
                                 }
                             });
+                    alertDialog.setCanceledOnTouchOutside(false);
                     alertDialog.show();
 
                 }
                 else {
 
 
-                    alertDialog.setMessage("Votre score final est de "+ score);
+                    alertDialog.setMessage("Votre score final est de "+ (int) score);
                     alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
@@ -134,13 +135,22 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
                                     touchMarker.remove();
                                     curentPositionMarker.remove();
                                     polyline.remove();
+                                    goToMenu();
                                 }
                             });
+                    alertDialog.setCanceledOnTouchOutside(false);
                     alertDialog.show();
                     //save Score here and launch menu activity
+                    addScoreToDB((int) score, difficulty);
+
                 }
             }
         }
+
+    }
+    public  void goToMenu(){
+        Intent intent = new Intent(this, Menu.class);
+        startActivity(intent);
 
     }
     // The Map is verified. It is now safe to manipulate the map.
