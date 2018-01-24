@@ -54,6 +54,7 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
     private Boolean isDialog2 = false;
     private String dialog2;
     private String dialog1;
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         //if(isGameStarted == true) {
@@ -222,9 +223,9 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
 
                 }
                 else {
-
+                    int inv_flag = isInvert?1:0;
                     isGameStarted = false;
-                    addScoreToDB((int) score, difficulty);
+                    addScoreToDB((int) score, difficulty + inv_flag);
 
                     AlertDialog.Builder alertDialogbuild = new AlertDialog.Builder(this);
                     alertDialogbuild.setTitle("Bravo");
@@ -295,7 +296,7 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
         difficulty = intent.getIntExtra("FLAG", 0);
         isInvert = intent.getBooleanExtra("MODE", false);
 
-        //eaysy mode
+        //easy mode
         easyList.add(new CustomPosition(new LatLng(48.8583698, 2.2944833000000244),"Tour Eiffel"));
         easyList.add(new CustomPosition(new LatLng(48.63601659999999, -1.5111144999999624),"Mont Saint Michel"));
         easyList.add(new CustomPosition(new LatLng(40.689684, -74.043467),"Statue de la liberté"));
@@ -306,7 +307,8 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
         easyList.add(new CustomPosition(new LatLng(29.9772962, 31.132495500000005),"Pyramides de Gizeh"));
         easyList.add(new CustomPosition(new LatLng(27.1750151, 78.04215520000002),"Taj Mahal"));
         easyList.add(new CustomPosition(new LatLng(40.7485413, -73.98575770000002),"Empire state building"));
-        //
+        // Medium mode
+
 
         positionList.add(easyList);
         Log.d("myTag", "This is my message "+difficulty);

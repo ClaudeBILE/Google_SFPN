@@ -12,7 +12,7 @@ public class Score {
     private int points;
     private int niveau;
     private Date timestamp;
-    private SimpleDateFormat ft =new SimpleDateFormat (" dd.MM.yyyy hh:mm");
+    private SimpleDateFormat ft =new SimpleDateFormat (" dd.MM.yyyy HH:mm");
 
     public Score(int d, int lvl){
         this.points = d;
@@ -45,9 +45,17 @@ public class Score {
             case 0:
                 return "Novice";
             case 1:
+                return "Inv Novice";
+            case 2:
                 return "Medium";
-            default:
+            case 3:
+                return "Inv Novice";
+            case 4:
                 return "Expert";
+            case 5:
+                return "Inv Expert";
+            default:
+                return "";
         }
     }
 
