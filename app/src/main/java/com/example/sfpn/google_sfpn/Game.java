@@ -149,7 +149,8 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
                     AlertDialog.Builder alertDialogbuild = new AlertDialog.Builder(this);
                     alertDialogbuild.setTitle("Bravo");
                     alertDialogbuild.setCancelable(false);
-                    alertDialogbuild.setMessage("Votre score final est de "+ (int) score)
+                    alertDialogbuild.setMessage("Vous êtes à "+ distance[0]/1000 +"Km de "+ currentPosition.getNom() +
+                            "\nVotre score final est de "+ (int) score)
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
