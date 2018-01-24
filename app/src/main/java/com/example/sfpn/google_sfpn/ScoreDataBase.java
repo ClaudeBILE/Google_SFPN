@@ -16,6 +16,10 @@ import static android.content.ContentValues.TAG;
  */
 
 public class ScoreDataBase extends SQLiteOpenHelper {
+    // Persistence of Statistics with a database
+    // Also used for saving and deleting scores from ListView
+    // After a game ends we add the score here
+
     private static ScoreDataBase sInstance;
 
     //Database info
@@ -49,6 +53,8 @@ public class ScoreDataBase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // We can assume that there won't be two score in the same minute
+        // So the time is the primary Key
         String CREATE_SCORE_TABLE = "CREATE TABLE " + TABLE_SCORE +
                 "(" +
                     KEY_SCORE_POINTS + " INT," +
@@ -67,6 +73,7 @@ public class ScoreDataBase extends SQLiteOpenHelper {
     }
 
     public void addScore(Score score){
+        // We add a new score, after a game
         SQLiteDatabase db = getWritableDatabase();
 
         db.beginTransaction();
@@ -86,8 +93,10 @@ public class ScoreDataBase extends SQLiteOpenHelper {
     }
 
     public ArrayList<Score> getAllScores(){
+        // Fetch de data to display in the ListView
         ArrayList<Score> scores = new ArrayList<Score>();
 
+        // We want everything
         String SCORES_SELECT_QUERY =
                 String.format("SELECT * FROM %s",
                         TABLE_SCORE);
@@ -128,6 +137,7 @@ public class ScoreDataBase extends SQLiteOpenHelper {
     }
 
     public void deleteScore(Score score){
+        // We want to delete one Score, we use the Time primary key to identify the good score
         SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
         try {

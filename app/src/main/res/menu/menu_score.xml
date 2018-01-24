@@ -15,8 +15,12 @@
     <item
         android:id="@+id/sort_by"
         android:title="Sort by :"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        />
+    <!--Not clickable, just display-->
+
     <group android:id="@+id/sort" android:checkableBehavior="single">
+    <!-- We want to hide these options all the time-->
 
     <item android:id="@+id/sort_score"
         android:title="Score"
@@ -29,6 +33,7 @@
         android:title="Time"
         app:showAsAction="never"/>
     </group>
+
     <group android:id="@+id/delete">
         <item
             android:id="@+id/delete_all"

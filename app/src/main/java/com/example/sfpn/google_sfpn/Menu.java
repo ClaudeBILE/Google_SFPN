@@ -25,15 +25,18 @@ public class Menu extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        // Our buttons
         easy = (Button) findViewById(R.id.easy);
         medium = (Button) findViewById(R.id.medium);
         expert = (Button) findViewById(R.id.expert);
         statistics = (Button) findViewById(R.id.statistics);
+
         easy.setOnClickListener(this);
         medium.setOnClickListener(this);
         expert.setOnClickListener(this);
         statistics.setOnClickListener(this);
 
+        // Invert Mode ?
         Switch switchButton = (Switch) findViewById(R.id.invert_mode);
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -50,8 +53,11 @@ public class Menu extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
+        // Start the game with sending the difficulty and the mode
+        // or launch the Score Activity
         Intent intent = new Intent(this, Game.class);
         intent.putExtra("MODE",isInvert);
+
         int id = view.getId();
         if(id == easy.getId()){
             intent.putExtra("FLAG", 0);

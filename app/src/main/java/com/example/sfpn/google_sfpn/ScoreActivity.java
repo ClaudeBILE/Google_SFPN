@@ -32,19 +32,22 @@ public class ScoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
 
+        // Get the scores from the database/file
         databaseHelper = ScoreDataBase.getInstance(this);
         list = databaseHelper.getAllScores();
 
-        //ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, list);
         adapter = new ScoresAdapter(this, list);
-
+        // Display scores
         score = (ListView) findViewById(R.id.scoreListView);
         score.setAdapter(adapter);
 
+        //Set up the ToolBar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
+
+        // PopupMenu on the statistic for sharing or deleting.
 
         score.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -77,7 +80,6 @@ public class ScoreActivity extends AppCompatActivity {
                                 intent.putExtra(Intent.EXTRA_TEXT,"Look at my score !! \n"+
                                         selectedScore.getPoints() + " points on " +
                                                 selectedScore.getNiveau() + " difficulty");
-                                //startActivity(intent);
                                 startActivity(Intent.createChooser(intent,"Share via"));
 
                                 return true;
@@ -92,6 +94,7 @@ public class ScoreActivity extends AppCompatActivity {
     }
 
     public void removeAllScore(){
+        // Ask for double check before deleting all scores
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle("Attention");
         alertDialog.setMessage("Do you want to delete all scores ?")
@@ -122,6 +125,10 @@ public class ScoreActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Menu Buttons behaviour on Click
+        // id : 0 = points, 1 = lvl and 2 = time
+        // upOrDown : 1 = up and -1 = down;
+
         switch (item.getItemId()){
             case R.id.up :
                 sortdirection = 1;
@@ -168,6 +175,7 @@ public class ScoreActivity extends AppCompatActivity {
     public void sortListView(final int id, final int upOrDown){
         // id : 0 = points, 1 = lvl and 2 = time
         // upOrDown : 1 = up and -1 = down;
+        // One sort to rule them all
 
         list.sort(new Comparator<Score>() {
             @Override
@@ -180,7 +188,7 @@ public class ScoreActivity extends AppCompatActivity {
                         return upOrDown;
 
                     case 1:
-                        if (o1.getNiveauInt() >= o2.getPointsInt()){
+                        if (o1.getNiveauInt() >= o2.getNiveauInt()){
                             return -1*upOrDown;
                         }
                         return upOrDown;

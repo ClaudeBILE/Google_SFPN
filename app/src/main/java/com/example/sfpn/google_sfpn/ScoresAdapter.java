@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 
 public class ScoresAdapter extends ArrayAdapter<Score> {
-
+    // Our own Display for ListView
     public ScoresAdapter(Context context, ArrayList<Score> scores){
         super(context,0,scores);
     }
@@ -24,11 +24,12 @@ public class ScoresAdapter extends ArrayAdapter<Score> {
 
 
         if (convertView == null){
+            // The cell format is set in the layout/cell_layout.xml file
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.cell_layout, parent, false);
         }
 
         Score score = getItem(position);
-
+        //We want to display Score class : 3 elements
         TextView tvDistance = (TextView) convertView.findViewById(R.id.score);
         TextView tvNiveau = (TextView) convertView.findViewById(R.id.lvl);
         TextView tvToday = (TextView) convertView.findViewById(R.id.date);

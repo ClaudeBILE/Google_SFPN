@@ -209,15 +209,14 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
         difficulty = intent.getIntExtra("FLAG", 0);
         isInvert = intent.getBooleanExtra("MODE", false);
 
-        Toast.makeText(getApplicationContext(),isInvert + "",Toast.LENGTH_SHORT).show();
         //eaysy mode
         easyList.add(new CustomPosition(new LatLng(48.8583698, 2.2944833000000244),"Tour Eiffel"));
         easyList.add(new CustomPosition(new LatLng(48.63601659999999, -1.5111144999999624),"Mont Saint Michel"));
         easyList.add(new CustomPosition(new LatLng(40.6892494, -74.0445004),"Statue de la liberté"));
-        easyList.add(new CustomPosition(new LatLng(-33.8567844, 151.21529669999995),"Opéra de sydney"));
-        easyList.add(new CustomPosition(new LatLng(51.50072919999999, -0.12462540000001354),"Big ben"));
-        easyList.add(new CustomPosition(new LatLng(43.87910249999999, -103.4590667),"Mont rushmore"));
-        easyList.add(new CustomPosition(new LatLng(43.722952, 10.396596999999929),"Tour de pise"));
+        easyList.add(new CustomPosition(new LatLng(-33.8567844, 151.21529669999995),"Opéra de Sydney"));
+        easyList.add(new CustomPosition(new LatLng(51.50072919999999, -0.12462540000001354),"Big Ben"));
+        easyList.add(new CustomPosition(new LatLng(43.87910249999999, -103.4590667),"Mont Rushmore"));
+        easyList.add(new CustomPosition(new LatLng(43.722952, 10.396596999999929),"Tour de Pise"));
         easyList.add(new CustomPosition(new LatLng(29.9772962, 31.132495500000005),"Pyramides de Gizeh"));
         easyList.add(new CustomPosition(new LatLng(27.1750151, 78.04215520000002),"Taj Mahal"));
         easyList.add(new CustomPosition(new LatLng(40.7485413, -73.98575770000002),"Empire state building"));
