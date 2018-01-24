@@ -144,22 +144,43 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
                 else {
 
                     isGameStarted = false;
-                    alertDialog.setMessage("Votre score final est de "+ (int) score);
-                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
-                            new DialogInterface.OnClickListener() {
+                    addScoreToDB((int) score, difficulty);
+
+                    AlertDialog.Builder alertDialogbuild = new AlertDialog.Builder(this);
+                    alertDialogbuild.setTitle("Bravo");
+                    alertDialogbuild.setCancelable(false);
+                    alertDialogbuild.setMessage("Votre score final est de "+ (int) score)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
+
                                     touchMarker.remove();
                                     curentPositionMarker.remove();
                                     polyline.remove();
                                     goToMenu();
                                 }
-                            });
-                    alertDialog.setCanceledOnTouchOutside(false);
-                    alertDialog.show();
+                            })
+                            .setNegativeButton("Publish", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                    //save Score here and launch menu activity
-                    addScoreToDB((int) score, difficulty);
+                                    touchMarker.remove();
+                                    curentPositionMarker.remove();
+                                    polyline.remove();
+                                    goToMenu();
+                                    Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                                    intent.setType("text/plain");
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    Score newScore = new Score((int)score, difficulty);
+
+                                    intent.putExtra(Intent.EXTRA_SUBJECT, "Look at my score !!");
+                                    intent.putExtra(Intent.EXTRA_TEXT,"Look at my score !! \n"+
+                                            newScore.getPoints() + " points on " +
+                                            newScore.getNiveau() + " difficulty");
+                                    startActivity(Intent.createChooser(intent,"Share via"));
+
+                                }
+                            }).show();
 
                 }
             }

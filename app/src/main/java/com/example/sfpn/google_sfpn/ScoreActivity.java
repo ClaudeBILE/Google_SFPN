@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
 import android.widget.PopupMenu;
-import android.widget.ShareActionProvider;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -26,7 +25,6 @@ public class ScoreActivity extends AppCompatActivity {
     private int sortby = 0;
     private int sortdirection = -1;
     private MenuItem currentCheck;
-    private ShareActionProvider myShareActionProvider;
     private Score selectedScore;
 
     @Override
@@ -70,7 +68,7 @@ public class ScoreActivity extends AppCompatActivity {
                         .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
-                                myShareActionProvider = (ShareActionProvider) item.getActionProvider();
+
                                 Intent intent = new Intent(android.content.Intent.ACTION_SEND);
                                 intent.setType("text/plain");
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -80,7 +78,8 @@ public class ScoreActivity extends AppCompatActivity {
                                         selectedScore.getPoints() + " points on " +
                                                 selectedScore.getNiveau() + " difficulty");
                                 //startActivity(intent);
-                                myShareActionProvider.setShareIntent(intent);
+                                startActivity(Intent.createChooser(intent,"Share via"));
+
                                 return true;
                             }
                         });
@@ -116,8 +115,7 @@ public class ScoreActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
         getMenuInflater().inflate(R.menu.menu_score, menu);
-        //MenuItem item = menu.findItem(R.id.share_cell);
-        //myShareActionProvider = (ShareActionProvider) item.getActionProvider();
+
         return true;
     }
 
