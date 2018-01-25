@@ -227,7 +227,7 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
                 else {
                     int inv_flag = isInvert?1:0;
                     isGameStarted = false;
-                    addScoreToDB((int) score, difficulty + inv_flag);
+                    addScoreToDB((int) score, difficulty*2 + inv_flag);
 
                     AlertDialog.Builder alertDialogbuild = new AlertDialog.Builder(this);
                     alertDialogbuild.setTitle("Bravo");
@@ -296,6 +296,7 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
         setContentView(R.layout.activity_game);
         Intent intent = getIntent();
         difficulty = intent.getIntExtra("FLAG", 0);
+
         isInvert = intent.getBooleanExtra("MODE", false);
 
         //easy mode
@@ -318,15 +319,16 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
         mediumList.add(new CustomPosition(new LatLng( -34.608464, -58.373454),"Buenos Aires"));
         mediumList.add(new CustomPosition(new LatLng(23.140910, -82.351690),"Castillo de la Real Fuerza"));
         // Expert mode
-        expertList.add(new CustomPosition(new LatLng(42.8803513,-8.5457002),"Corona Hotel, CA"));
+        expertList.add(new CustomPosition(new LatLng(32.679867, -117.179628),"Corona Hotel, CA"));
         expertList.add(new CustomPosition(new LatLng(-8.433621, 115.278535),"Tegallalang Rice Terrace"));
         expertList.add(new CustomPosition(new LatLng(7.958417, 80.759725),"Sirigiya"));
         expertList.add(new CustomPosition(new LatLng(-33.437588, -70.651015),"Santiago Metropolitan Cathedral"));
         expertList.add(new CustomPosition(new LatLng(-43.459340, 171.179031),"Lake Heron"));
         expertList.add(new CustomPosition(new LatLng(41.305919, 69.295931),"Sacred Heart Catholic Cathedral, Ouzbekistan"));
         expertList.add(new CustomPosition(new LatLng( 64.749705, -23.889970 ),"Snæfellsjökull"));
-        expertList.add(new CustomPosition(new LatLng(  55.676618, 12.581232  ),"Symi"));
+        expertList.add(new CustomPosition(new LatLng(  36.610546, 27.837900  ),"Symi"));
         expertList.add(new CustomPosition(new LatLng( 6.813364, -5.295729 )," basilique de Yamoussoukro"));
+
         positionList.add(easyList);
         positionList.add(mediumList);
         positionList.add(expertList);

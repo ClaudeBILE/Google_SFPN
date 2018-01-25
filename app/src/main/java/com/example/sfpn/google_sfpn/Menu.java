@@ -65,12 +65,12 @@ public class Menu extends AppCompatActivity implements View.OnClickListener{
         }
 
         if (id == medium.getId()){
-            intent.putExtra("FLAG", 2);
+            intent.putExtra("FLAG", 1);
             startActivity(intent);
         }
 
         if (id == expert.getId()){
-            intent.putExtra("FLAG", 4);
+            intent.putExtra("FLAG", 2);
             startActivity(intent);
         }
         if (id == statistics.getId()){
