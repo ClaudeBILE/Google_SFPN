@@ -39,6 +39,8 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
     private StreetViewPanorama mPanorama;
     private ArrayList<ArrayList<CustomPosition>> positionList = new ArrayList<ArrayList<CustomPosition>>() ;
     private ArrayList<CustomPosition>easyList = new ArrayList<CustomPosition>();
+    private ArrayList<CustomPosition>mediumList = new ArrayList<CustomPosition>();
+    private ArrayList<CustomPosition>expertList = new ArrayList<CustomPosition>();
     private CustomPosition currentPosition;
     private final double circonferenceTerre = 40075/2.0;
     private Marker touchMarker;
@@ -308,9 +310,26 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
         easyList.add(new CustomPosition(new LatLng(27.1750151, 78.04215520000002),"Taj Mahal"));
         easyList.add(new CustomPosition(new LatLng(40.7485413, -73.98575770000002),"Empire state building"));
         // Medium mode
-
-
+        mediumList.add(new CustomPosition(new LatLng(35.020950, 135.762192),"Kyōto-gosho"));
+        mediumList.add(new CustomPosition(new LatLng(37.552278, 126.987358),"Seoul Tower"));
+        mediumList.add(new CustomPosition(new LatLng(55.676618, 12.581232),"Christiansborgr"));
+        mediumList.add(new CustomPosition(new LatLng(11.562584, 104.931531),"Palais royal de Phnom Penh"));
+        mediumList.add(new CustomPosition(new LatLng( 45.498769, -73.570384 ),"Montréal"));
+        mediumList.add(new CustomPosition(new LatLng( -34.608464, -58.373454),"Buenos Aires"));
+        mediumList.add(new CustomPosition(new LatLng(23.140910, -82.351690),"Castillo de la Real Fuerza"));
+        // Expert mode
+        expertList.add(new CustomPosition(new LatLng(42.8803513,-8.5457002),"Corona Hotel, CA"));
+        expertList.add(new CustomPosition(new LatLng(-8.433621, 115.278535),"Tegallalang Rice Terrace"));
+        expertList.add(new CustomPosition(new LatLng(7.958417, 80.759725),"Sirigiya"));
+        expertList.add(new CustomPosition(new LatLng(-33.437588, -70.651015),"Santiago Metropolitan Cathedral"));
+        expertList.add(new CustomPosition(new LatLng(-43.459340, 171.179031),"Lake Heron"));
+        expertList.add(new CustomPosition(new LatLng(41.305919, 69.295931),"Sacred Heart Catholic Cathedral, Ouzbekistan"));
+        expertList.add(new CustomPosition(new LatLng( 64.749705, -23.889970 ),"Snæfellsjökull"));
+        expertList.add(new CustomPosition(new LatLng(  55.676618, 12.581232  ),"Symi"));
+        expertList.add(new CustomPosition(new LatLng( 6.813364, -5.295729 )," basilique de Yamoussoukro"));
         positionList.add(easyList);
+        positionList.add(mediumList);
+        positionList.add(expertList);
         Log.d("myTag", "This is my message "+difficulty);
 
         this.Game(difficulty);
