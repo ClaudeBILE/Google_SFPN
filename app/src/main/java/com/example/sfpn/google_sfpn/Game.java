@@ -2,6 +2,8 @@ package com.example.sfpn.google_sfpn;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,8 @@ import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -23,6 +27,7 @@ import com.google.android.gms.maps.StreetViewPanoramaFragment;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.SupportStreetViewPanoramaFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -172,6 +177,23 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
 
             if (indiceList < positionList.get(difficulty).size()) {
                 currentPosition = positionList.get(difficulty).get(indiceList);
+                //Zoom
+                //accessory
+                LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                builder.include(currentPosition.getPosition());
+                builder.include(point);
+
+                /**initialize the padding for map boundary*/
+                int padding = 50;
+                /**create the bounds from latlngBuilder to set into map camera*/
+                LatLngBounds bounds = builder.build();
+                /**create the camera with bounds and padding to set into map*/
+                CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+                /**call the map call back to know map is loaded or not*/
+                gMap.animateCamera(cu);
+
+                //
+
 
                 touchMarker = gMap.addMarker(new MarkerOptions()
                                 .position(point)
@@ -189,6 +211,7 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
                         .add(currentPosition.getPosition()) // Same longitude, and 16km to the south
                         .add(point);
                 polyline = gMap.addPolyline(rectOptions);
+
 
                 float [] distance = new float[1];
                 Location.distanceBetween(currentPosition.getPosition().latitude,currentPosition.getPosition().longitude,point.latitude,point.longitude,distance);
