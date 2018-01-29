@@ -1,3 +1,7 @@
+Noms du binôme:
+3361300 Alexis Lhuillery
+3302485 Claude BILE
+
 Architecture :
 L'ensemble des fichiers java sont dans app/src/main/java/com.exemple.sfpn.google_sfpn/
 
@@ -7,8 +11,6 @@ L'ensemble des fichiers java sont dans app/src/main/java/com.exemple.sfpn.google
         1 boutons score -> ScoreActivity
     Game :
         Le jeu, a la fin du jeu on retourne sur Menu
-    CustomPosition:
-
     ScoreActivity:
         Utilise la class Score pour la structure des donnes, la ScoresAdapter pour un Adapter
         personaliser et ScoreDataBase.
@@ -73,3 +75,4 @@ Quelques difficultés :
     Personalisation de la toolbar en terme de couleur -> pas de couleurs
     Personalisation des cellules de la ListView -> creation d'un xml pour une cellule et un
     adaptateur personaliser.
+    Affichage d'un svg avec un drawable xml mais ca ne marchait pas -> affichage jpeg
