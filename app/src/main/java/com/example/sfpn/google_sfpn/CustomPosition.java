@@ -4,6 +4,8 @@ import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by Henri-Philippe on 23/01/2018.
+ * Classe perso pour les postions
+ * nom lat lng
  */
 
 public class CustomPosition {

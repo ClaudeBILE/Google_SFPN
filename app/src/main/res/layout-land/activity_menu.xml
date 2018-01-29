@@ -39,11 +39,11 @@
         android:layout_gravity="center_horizontal|center_vertical"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
 
+        android:layout_marginStart="8dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="PLAY EASY"
-        app:layout_constraintBottom_toTopOf="@+id/expert"
+        app:layout_constraintBottom_toTopOf="@+id/medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/ImageMenu" />
@@ -56,14 +56,12 @@
         android:layout_gravity="center_horizontal|center_vertical"
 
         android:layout_marginBottom="8dp"
-
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="PLAY MEDIUM"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/expert"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
 
     <Button
@@ -73,8 +71,8 @@
         android:layout_height="wrap_content"
 
         android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_marginBottom="8dp"
 
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:gravity="center_horizontal|center_vertical"
@@ -92,14 +90,12 @@
         android:layout_gravity="center_horizontal|center_vertical"
 
         android:layout_marginBottom="8dp"
-
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="STATISTICS"
-        app:layout_constraintBottom_toTopOf="@+id/medium"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
 
     <android.support.constraint.Guideline

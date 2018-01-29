@@ -38,33 +38,55 @@ import java.util.Iterator;
 
 public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMapLongClickListener, OnStreetViewPanoramaReadyCallback {
 
+    //Fragment Map et street view
     private SupportMapFragment map;
     private GoogleMap gMap;
     private SupportStreetViewPanoramaFragment streetView;
     private StreetViewPanorama mPanorama;
+
+    //Array d'objets  tableaux de positions pour les différents modes de jeu
     private ArrayList<ArrayList<CustomPosition>> positionList = new ArrayList<ArrayList<CustomPosition>>() ;
     private ArrayList<CustomPosition>easyList = new ArrayList<CustomPosition>();
     private ArrayList<CustomPosition>mediumList = new ArrayList<CustomPosition>();
     private ArrayList<CustomPosition>expertList = new ArrayList<CustomPosition>();
+
+    //position recherché courante dans le jeu
     private CustomPosition currentPosition;
+
     private final double circonferenceTerre = 40075/2.0;
+    //Objets marker  et polylines pour la map
     private Marker touchMarker;
     private Marker curentPositionMarker;
     private Polyline polyline;
+
+    //variable qui contient la difficulté choisie par l'utilisateur
     private int difficulty;
+
+    //définit le score maximal pour notre formule de calcul de score
     private final int topScore = 10000;
+
+    //Le jeu est lancé ?
     private Boolean isGameStarted = false;
+    //contient le score courant
     private double score;
+    //position courante dans la liste des positions à examiner pour le jeu
     private int indiceList = 0;
+
+    //Mode inverse
     private Boolean isInvert = false;
+    //variables pour savoir s'il y'a des alert dialog affichés et le méssage qu'il contient
     private Boolean isDialog1 = false;
     private Boolean isDialog2 = false;
     private String dialog2;
     private String dialog1;
 
+    /*
+    * Sauvegarde l'état des variables nécessaires au fonctionnement du jeu
+    *
+    * */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        //if(isGameStarted == true) {
+
             outState.putInt("IndiceList", indiceList);
             outState.putBoolean("IsGameStart",isGameStarted);
             outState.putDouble("score",score);
@@ -74,11 +96,15 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
             outState.putString("dialog1",dialog1);
             outState.putString("dialog2",dialog2);
             outState.putInt("difficulty",difficulty);
-            //outState.putInt("");
+
             super.onSaveInstanceState(outState);
         //}
     }
 
+    /*
+    * Restaure l'état des variables nécessaires au fonctionnement du jeu
+    * vérifie s'il y'avait un alertdialog au moment de la dernière interruption et le reaffiche.
+    * */
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -148,7 +174,9 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
                     }).show();
         }
     }
-
+/*
+* Demande une Map si on en a pas déja une
+* */
     protected void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (map == null) {
@@ -161,6 +189,9 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
             }
         }
     }
+    /*
+    * Lance la map quand elle est prête
+    * */
     @Override
         public void onMapReady(GoogleMap map) {
         Log.d("myTag", "loading Map");
@@ -169,6 +200,12 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
 
     }
 
+    /*
+    * Permet de dérouler le jeu
+    * A chaque apuie long calcul la distance le score et les affichages
+    *
+    *
+    * */
     @Override
     public void onMapLongClick(LatLng point) {
 
@@ -177,23 +214,6 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
 
             if (indiceList < positionList.get(difficulty).size()) {
                 currentPosition = positionList.get(difficulty).get(indiceList);
-                //Zoom
-                //accessory
-                LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                builder.include(currentPosition.getPosition());
-                builder.include(point);
-
-                /**initialize the padding for map boundary*/
-                int padding = 50;
-                /**create the bounds from latlngBuilder to set into map camera*/
-                LatLngBounds bounds = builder.build();
-                /**create the camera with bounds and padding to set into map*/
-                CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
-                /**call the map call back to know map is loaded or not*/
-                gMap.animateCamera(cu);
-
-                //
-
 
                 touchMarker = gMap.addMarker(new MarkerOptions()
                                 .position(point)
@@ -299,6 +319,8 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
         }
 
     }
+
+    //retour au menu en fin de jeu
     public  void goToMenu(){
         Intent intent = new Intent(this, Menu.class);
         startActivity(intent);
@@ -313,6 +335,9 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
 
         }
     }
+    /*
+    *
+    * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -352,12 +377,14 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
         expertList.add(new CustomPosition(new LatLng(  36.610546, 27.837900  ),"Symi"));
         expertList.add(new CustomPosition(new LatLng( 6.813364, -5.295729 )," basilique de Yamoussoukro"));
 
+        //Tableau de tableau de positions pour chaque mode
         positionList.add(easyList);
         positionList.add(mediumList);
         positionList.add(expertList);
         Log.d("myTag", "This is my message "+difficulty);
-
+        // Fonction qui initialise le jeu
         this.Game(difficulty);
+        //Evitez de recharger la street view et la map si on est en rotation
         if (streetView == null){
             streetView = ((SupportStreetViewPanoramaFragment) getSupportFragmentManager().findFragmentById(R.id.street));
             if(streetView != null) {
@@ -381,7 +408,7 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
 
 
     }
-
+    //Fonction d'initialisation du jeu sur la position courante
     public void Game(int difficulty){
             ArrayList<CustomPosition> levelPositionsList = positionList.get(difficulty);
             indiceList =0;
@@ -404,7 +431,7 @@ public class Game extends AppCompatActivity implements OnMapReadyCallback, OnMap
             Log.d("myTag", "Loading street view");
         }
     }
-
+    //Sauvegarder dans la database
     public void addScoreToDB(int points, int difficulty){
         Score newScore = new Score(points,difficulty);
         ScoreDataBase dataBase = ScoreDataBase.getInstance(this);
